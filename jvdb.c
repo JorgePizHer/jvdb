@@ -70,21 +70,21 @@ int main (int argc, char *argv[]) {
     char *operacion = argv[1];
     char *basededatos = argv[2];
     char *coleccion = argv[3];
-    char *documento = argv[4];
-    
-    char ruta[100];
-    strcpy(ruta,basededatos);
-    strcat(ruta,"/");
-    strcat(ruta,coleccion);
-    strcat(ruta,"/");
-    strcat(ruta,documento);
-    strcat(ruta,".json");
-    
-    printf("la ruta es: %s",ruta);
     
     
     
    if (strcmp(operacion,"select") == 0){
+       
+        char *documento = argv[4];
+        char ruta[100];
+        strcpy(ruta,"db/");
+        strcat(ruta,basededatos);
+        strcat(ruta,"/");
+        strcat(ruta,coleccion);
+        strcat(ruta,"/");
+        strcat(ruta,documento);
+        strcat(ruta,".json");    
+       
         archivo = fopen(ruta,"r");
         printf("Te enseno los datos:\n");
         
@@ -95,23 +95,66 @@ int main (int argc, char *argv[]) {
         }
         
     }else if (strcmp(operacion,"insert") == 0){
-        
-    archivo = fopen(ruta,"w");
-    char *texto = argv[5];
-    fputs(strcat(texto,"\n"),archivo);
-    fclose(archivo);
-        
+    
+        char *documento = argv[4];  
+        char ruta[100];
+        strcpy(ruta,"db/");
+        strcat(ruta,basededatos);
+        strcat(ruta,"/");
+        strcat(ruta,coleccion);
+        strcat(ruta,"/");
+        strcat(ruta,documento);
+        strcat(ruta,".json");    
+        archivo = fopen(ruta,"w");
+        char *texto = argv[5];
+        fputs(strcat(texto,"\n"),archivo);
+        fclose(archivo);
+    
+    }else if (strcmp(operacion,"createCollection") == 0){
+        //Crear nueva carpeta con mkdir
+        char rutacoleccion[100];
+        strcpy(rutacoleccion,"db/");
+        strcat(rutacoleccion,basededatos);
+        strcat(rutacoleccion,"/");
+        strcat(rutacoleccion,coleccion);
+        if (mkdir(rutacoleccion,0777) == 0){
+            printf("ok");
+        }else {
+            printf("ko");
+        }
+            
+            
     }else if (strcmp(operacion,"update") == 0){
-        
-    char *registroviejo = argv[5];
-    char *nuevoregistro = argv[6];
-    actualizarRegistro(ruta,registroviejo,nuevoregistro);
+      
+        char *documento = argv[4];    
+        char ruta[100];
+        strcpy(ruta,"db/");
+        strcat(ruta,basededatos);
+        strcat(ruta,"/");
+        strcat(ruta,coleccion);
+        strcat(ruta,"/");
+        strcat(ruta,documento);
+        strcat(ruta,".json");
+       
+        char *registroviejo = argv[5];
+        char *nuevoregistro = argv[6];
+        actualizarRegistro(ruta,registroviejo,nuevoregistro);
       
         
     }else if (strcmp(operacion,"delete") == 0){
     
-    char *registroeliminar = argv[5];
-    eliminarRegistro(ruta,registroeliminar);
+        char *documento = argv[4];    
+        char ruta[100];
+        strcpy(ruta,"db/");
+        strcat(ruta,basededatos);
+        strcat(ruta,"/");
+        strcat(ruta,coleccion);
+        strcat(ruta,"/");
+        strcat(ruta,documento);
+        strcat(ruta,".json");
+       
+        char *registroeliminar = argv[5];
+        eliminarRegistro(ruta,registroeliminar);
     
         
     }else {
