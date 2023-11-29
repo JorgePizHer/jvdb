@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <string.h>
-
+#include <time.h>
 
 void actualizarRegistro (char *nombrearchivo, char *registroviejo, char *nuevoregistro) {
     
@@ -69,15 +69,22 @@ int main (int argc, char *argv[]) {
     FILE *archivo;
     char *operacion = argv[1];
     char *basededatos = argv[2];
-    char *nombrearchivo = argv[3];
+    char *coleccion = argv[3];
+    char *documento = argv[4];
     
     char ruta[100];
     strcpy(ruta,basededatos);
-    strcat(ruta,"-");
-    strcat(ruta,nombrearchivo);
-    strcat(ruta,".txt");
+    strcat(ruta,"/");
+    strcat(ruta,coleccion);
+    strcat(ruta,"/");
+    strcat(ruta,documento);
+    strcat(ruta,".json");
     
-    if (strcmp(operacion,"select") == 0){
+    printf("la ruta es: %s",ruta);
+    
+    
+    
+   if (strcmp(operacion,"select") == 0){
         archivo = fopen(ruta,"r");
         printf("Te enseno los datos:\n");
         
@@ -89,21 +96,21 @@ int main (int argc, char *argv[]) {
         
     }else if (strcmp(operacion,"insert") == 0){
         
-    archivo = fopen(ruta,"a");
-    char *texto = argv[4];
+    archivo = fopen(ruta,"w");
+    char *texto = argv[5];
     fputs(strcat(texto,"\n"),archivo);
     fclose(archivo);
         
     }else if (strcmp(operacion,"update") == 0){
         
-    char *registroviejo = argv[4];
-    char *nuevoregistro = argv[5];
+    char *registroviejo = argv[5];
+    char *nuevoregistro = argv[6];
     actualizarRegistro(ruta,registroviejo,nuevoregistro);
       
         
     }else if (strcmp(operacion,"delete") == 0){
     
-    char *registroeliminar = argv[4];
+    char *registroeliminar = argv[5];
     eliminarRegistro(ruta,registroeliminar);
     
         
