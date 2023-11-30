@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <string.h>
-#include <time.h>
 
 void actualizarRegistro (char *nombrearchivo, char *registroviejo, char *nuevoregistro) {
     
@@ -58,7 +57,7 @@ void eliminarRegistro (char *nombrearchivo, char *registroeliminar) {
     fclose(nuevoArchivo);
     
     remove(nombrearchivo);
-    rename("nuevo.txt",nombrearchivo);
+    
     
     printf("Registro eliminado correctamente");
 }
@@ -69,9 +68,7 @@ int main (int argc, char *argv[]) {
     FILE *archivo;
     char *operacion = argv[1];
     char *basededatos = argv[2];
-    char *coleccion = argv[3];
-    
-    
+    char *coleccion = argv[3];  
     
    if (strcmp(operacion,"select") == 0){
        
@@ -110,6 +107,19 @@ int main (int argc, char *argv[]) {
         fputs(strcat(texto,"\n"),archivo);
         fclose(archivo);
     
+    }else if (strcmp(operacion,"createDatabase") == 0){
+        //Crear nueva base de datos
+        char rutaDB[100];
+        strcpy(rutaDB,"db/");
+        strcat(rutaDB,basededatos);
+        
+        if (mkdir(rutaDB,0777) == 0){
+            printf("ok");
+        }else {
+            printf("ko");
+        }   
+       
+       
     }else if (strcmp(operacion,"createCollection") == 0){
         //Crear nueva carpeta con mkdir
         char rutacoleccion[100];
@@ -153,7 +163,7 @@ int main (int argc, char *argv[]) {
         strcat(ruta,documento);
         strcat(ruta,".json");
        
-        char *registroeliminar = argv[5];
+        char *registroeliminar = argv[4];
         eliminarRegistro(ruta,registroeliminar);
     
         
@@ -166,3 +176,5 @@ int main (int argc, char *argv[]) {
     return 0;  
 }
 
+//crear nuevas bases de datos
+// select todos los archivos de una carpeta/registros de una tabla
