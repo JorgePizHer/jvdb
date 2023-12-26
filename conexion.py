@@ -19,3 +19,4 @@ class Jvdb:
         else:
             return("ko")
 
+Conexion1 = Jvdb("miempresa")
