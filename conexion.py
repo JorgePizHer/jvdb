@@ -11,7 +11,7 @@ class Jvdb:
         self.documento = documento
         self.contenido = contenido
 
-        comando = '"D:\\OneDrive\\Escritorio\\Entornos de desarrollo\\GitHubRepos\\jvdb\\jvdb.exe" '+operacion+' '+basededatos+' '+coleccion+' '+documento+' "'+contenido+'"'
+        comando = '"D:\\OneDrive\\Escritorio\\Entornos de desarrollo\\GitHubRepos\\jvdb\\jvdb.exe" '+self.operacion+' '+self.basededatos+' '+self.coleccion+' '+self.documento+' "'+self.contenido+'"'
         resultado = subprocess.run(comando,shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE,text=True)
 
         if resultado.returncode == 0:
@@ -20,3 +20,4 @@ class Jvdb:
             return("ko")
 
 Conexion1 = Jvdb("miempresa")
+Conexion1.insert("clientes","cliente4","Nuevo contenido de prueba")
